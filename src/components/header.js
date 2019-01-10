@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../logo.svg';
 import { Nav, NavItem, NavLink } from 'reactstrap';
 
 
