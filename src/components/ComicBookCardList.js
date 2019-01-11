@@ -1,17 +1,24 @@
-import React from 'react';
-import ComicBookCard from './ComicBookCard';
+ import React, { Component } from 'react';
+ import ComicBookCard from './ComicBookCard';
 
-const ComicBookCardList = (props) => {
-    return (
-        <div className="main">
-            <h1>TODO: Comic Book Card List</h1>
+export default class ConceptList extends Component {
+    render(){
+        let items = [];
+        let books = this.props.results;
+
+        for(let index in books){
+            items.push(
+                <ComicBookCard key={index} book={books[index]} />
+            )
+        }
+
+        return (
             <ul>
-                <li><ComicBookCard /></li>
+                {items}
             </ul>
-        </div>
-    )
+        );
+    }
 }
 
-export default ComicBookCardList;
 
 

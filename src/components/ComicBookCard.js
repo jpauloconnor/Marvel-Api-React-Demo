@@ -1,14 +1,13 @@
-import React from 'react';
-import logo from '../logo.svg';
+import React, { Component } from 'react';
 
-const ComicBookCard = (props) => {
-        return (
-            <div className="main">
-                <h1>Comic Book Title</h1>
-                <h3>Comic Book Author</h3>
-                <img width="75" src={logo} alt="book" />
-            </div>
-        );
+export default class ComicBookCard extends Component {
+    render(){
+        let book = this.props.book;
+
+        return(
+            <li>
+                {book.title}
+            </li>
+        )
+    }
 }
-
-export default ComicBookCard;

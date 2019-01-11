@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-
-
+import ComicBookCardList from './ComicBookCardList';
 export default class ComicBookCardForm extends Component {
-    state = {
-        comicBookTitle: 'wolverine'
+    constructor(props){
+        super(props);
+        this.state = {
+            results: []
+        }
+        this.handleKeyUp = this.handleKeyUp.bind(this);
     }
 
     handleSubmit = (event) => {
@@ -23,13 +26,10 @@ export default class ComicBookCardForm extends Component {
                     return;
                 }
                 response.json().then(data => {
-                    console.log(data.data.results[0].title);
-                    console.log(data.data.results[1].title);
-
-                    const results = data.results;
+                    const results = data.data.results;
                     this.setState({ results });
                 });
-            })       
+            })      
     }
    
     render(){
@@ -44,7 +44,9 @@ export default class ComicBookCardForm extends Component {
                     placeholder="Search a comic book" 
                     required 
                 />
-
+                
+                <ComicBookCardList results={this.state.results} /> 
+                
                 <button type="submit">Get Comic Book</button>
             </form>
         );
