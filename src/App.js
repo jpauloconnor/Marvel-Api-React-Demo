@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from './components/header';
+import Footer from './components/footer';
 import ComicBookSearch from './components/ComicBookSearch';
 import ComicBookDetail from './components/ComicBookDetails';
 import { useComicSearch, useComicDetail } from './hooks/comicBookHookFunctions'; //1
