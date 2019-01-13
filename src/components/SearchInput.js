@@ -10,11 +10,12 @@ const SearchInput = ({ onChange }) => {
 
   return (
     <div>
+      <p>Work in progress. For now, enter a name with a capital first letter(i.e, "Magneto or Hulk"). Give it a second. You can currently click on the results.</p>
       <input
         type="text"
         className="search-bar"
         onInput={handleSearchInput}
-        placeholder="Search Marvel"
+        placeholder="Enter a Character"
       />
     </div>
   )

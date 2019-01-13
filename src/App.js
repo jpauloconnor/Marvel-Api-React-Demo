@@ -13,10 +13,8 @@ const App = () => {
   const [comicBook, getComicBook] = useComicDetail();
 
   //Logging to show how to use/get the destructured state variables
-  console.log(`results:, ${results}`,
-              `searchComics:, ${searchComics}`, 
-              `comicBook: ${comicBook}`, 
-              `getComicBook, ${getComicBook}`);
+  
+  //console.log(results, searchComics, comicBook, getComicBook);
 
   return (
     <div>
@@ -30,7 +28,7 @@ const App = () => {
         </div>
         )}
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }

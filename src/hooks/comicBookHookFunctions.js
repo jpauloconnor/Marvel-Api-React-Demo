@@ -17,15 +17,15 @@ export function useComicSearch() {
 export function useComicDetail() {
   const [character, setCharacter] = useState(null)
   
-  console.log("Character:", character);
+  //console.log("Character:", character);
   
   function getCharacter(id) {
     if (id === null) {
       setCharacter(null)
     } else {
       getComicBookDetails(id).then(setCharacter)
-      var x = setCharacter;
-      console.log("X:", x);
+//      var x = setCharacter;
+    //  console.log("X:", x);
     }
   }
   
