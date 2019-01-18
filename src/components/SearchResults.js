@@ -1,15 +1,16 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 
 const SearchResult = ({ results, onSelect }) => (
   <div>
-    <ul>
+    <ListGroup>   
       {results.map(res => (
-        <li key={res.id} onClick={() => onSelect(res.id)}>
-          {res.title}
-        </li>
+        <ListGroupItem key={res.id} onClick={() => onSelect(res.id)}>
+        {res.title}
+        </ListGroupItem>
       ))}
-    </ul>
+    </ListGroup>
   </div>
 )
 

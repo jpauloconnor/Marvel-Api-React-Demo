@@ -5,7 +5,7 @@ const SearchInput = ({ onChange }) => {
 
   function handleSearchInput({ target }) {
       onChange(target.value);
-    }
+  }
 
   return (
     <div>
