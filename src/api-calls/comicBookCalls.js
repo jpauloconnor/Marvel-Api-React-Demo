@@ -3,6 +3,7 @@ const apiKey = `apikey=${process.env.REACT_APP_PUBLIC_API_KEY}`;
 
 export const searchComicBooks = async query => {
   let titleCaseQuery = toTitleCase(query);
+  console.log(titleCaseQuery);
   let url = `${marvelComicURL}comics?${apiKey}`;
   const res = await fetch(url);
   let responseObject = await res.json();
@@ -39,7 +40,7 @@ function findCharacterByBookFromQuery(query, data){
 
 function toTitleCase(str) {
   return str.replace(
-      /\w\S*/g,
+      /\b\w+/g,
       function(txt) {
           return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
       }
