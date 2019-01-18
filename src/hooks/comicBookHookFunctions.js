@@ -1,36 +1,41 @@
 import { useState } from 'react'  //New Library from React....
 import { searchComicBooks, getComicBookDetails } from '../api-calls/comicBookCalls'
 
-//1             //2
-export function useComicSearch() {
-          //3.1      3.2                4    5
-  const [results, setBookResults] = useState([])
-            //6
+export const useComicSearch = () => {
+  const [results, setBookResults] = useState([]);
+  
   function searchComics(book) {
-        //7                       8
-    searchComicBooks(book).then(setBookResults)
+    searchComicBooks(book)
+      .then(setBookResults)
   }
-           //9
   return [results, searchComics]
 }
 
+export function useSpinner(){
+  const [spinnerState, setSpinner] = useState(false);
+
+  function getSpinner(){
+    setSpinner(true)  
+  }
+
+  return [spinnerState, getSpinner];
+}
+
+
 export function useComicDetail() {
-  const [character, setCharacter] = useState(null)
-  
-  //console.log("Character:", character);
+  const [character, setCharacter] = useState(null);
   
   function getCharacter(id) {
     if (id === null) {
-      setCharacter(null)
+      setCharacter(null);
     } else {
-      getComicBookDetails(id).then(setCharacter)
-//      var x = setCharacter;
-    //  console.log("X:", x);
+      getComicBookDetails(id).then(setCharacter);
     }
   }
   
-  return [character, getCharacter]
+  return [character, getCharacter];
 }
+
 
 
 /* FOOTNOTES 

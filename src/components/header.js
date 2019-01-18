@@ -1,10 +1,10 @@
 import React from 'react';
 import { Nav, NavItem, NavLink } from 'reactstrap';
-
+import { marvelLogo } from "../assets/logo-marvel.svg";
 const Header = () => (
     <header>
         <div className="header-banner">
-            <h1>Marvel Comic Search</h1>
+            <img src={marvelLogo} alt="Home logo" height="60px" />
         </div>
         <Nav>
             <NavItem>
