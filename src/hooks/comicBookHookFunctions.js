@@ -3,7 +3,7 @@ import { searchComicBooks, getComicBookDetails } from '../api-calls/comicBookCal
 
 export const useComicSearch = () => {
   const [results, setBookResults] = useState([]);
-  
+  console.log("Results in hook:", results);
   function searchComics(book) {
     searchComicBooks(book)
       .then(setBookResults)

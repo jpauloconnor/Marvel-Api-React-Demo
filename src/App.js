@@ -10,6 +10,8 @@ const App = () => {
   const [results, searchComics] = useComicSearch();  
   const [comicBook, getComicBook] = useComicDetail();
 
+  
+  console.log("Results:", results);
   return (
     <div>
       <Header />
