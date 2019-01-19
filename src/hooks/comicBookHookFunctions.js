@@ -1,13 +1,27 @@
-import { useState } from 'react'  //New Library from React....
+import { useState } from 'react'  
 import { searchComicBooks, getComicBookDetails } from '../api-calls/comicBookCalls'
 
+export const useInitialState = () => {
+  const [initialResults, setInitialBookResults] = useState();
+
+  function searchInitialComics() {
+    searchComicBooks("Spider-Man")
+      .then(setInitialBookResults)
+  }
+
+  return [initialResults, searchInitialComics]
+}
+
+
 export const useComicSearch = () => {
+
   const [results, setBookResults] = useState([]);
-  console.log("Results in hook:", results);
+
   function searchComics(book) {
     searchComicBooks(book)
       .then(setBookResults)
   }
+
   return [results, searchComics]
 }
 
@@ -20,7 +34,6 @@ export function useSpinner(){
 
   return [spinnerState, getSpinner];
 }
-
 
 export function useComicDetail() {
   const [character, setCharacter] = useState(null);
@@ -35,8 +48,6 @@ export function useComicDetail() {
   
   return [character, getCharacter];
 }
-
-
 
 /* FOOTNOTES 
     1 - This is a callback function, meaning that it won't execute until after the inner function has executed

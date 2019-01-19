@@ -3,26 +3,33 @@ import './App.css';
 import Header from './components/header';
 import ComicBookSearch from './components/ComicBookSearch';
 import ComicBookDetail from './components/ComicBookDetails';
-import { useComicSearch, useComicDetail } from './hooks/comicBookHookFunctions'; 
+import { useComicSearch, useComicDetail, useInitialState } from './hooks/comicBookHookFunctions'; 
+import { HashRouter, Route, Switch } from 'react-router-dom';
+import { Container } from 'reactstrap';
 
 const App = () => {
-        
+  
+  const [initialResults, searchInitialComics ] = useInitialState();
   const [results, searchComics] = useComicSearch();  
   const [comicBook, getComicBook] = useComicDetail();
-
   
-  console.log("Results:", results);
   return (
-    <div>
-      <Header />
-        {comicBook ? (<ComicBookDetail comicBook={comicBook} />) 
-        : 
-        (
-        <div>
-            <ComicBookSearch onSearch={searchComics} onSelect={getComicBook} results={results} /> 
-        </div>
-        )}
-    </div>
+    <HashRouter>
+      <div>
+        <Header />
+          <Container>
+            <div>
+                <ComicBookSearch onSearch={searchComics} onSelect={getComicBook} results={results} /> 
+            </div>
+          </Container>
+
+            {comicBook ? 
+              (<ComicBookDetail comicBook={comicBook} />) 
+            : 
+              (<p>Search for a book</p>)  
+            }
+      </div>
+    </HashRouter>
   )
 }
 
