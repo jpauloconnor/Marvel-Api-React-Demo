@@ -1,38 +1,39 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import { ListGroup, 
-  ListGroupItem, 
+import { 
   Card, 
-  CardImg, 
   CardTitle, 
   CardBody, 
   CardHeader,
   Button,
-  Container,
-  Col, 
-  Row,
-  Media } from 'reactstrap';
+  Col,
+  Collapse
+ } from 'reactstrap';
 
-
-const SearchResult = ({ results, onSelect }) => (
+const SearchResult = ({ results, onSelect, toggleAccordion, isOpen }) => (
   <div>
-  <Row>
-    <Col sm="12" xl="6" md="4">
-      {results.map((res, i) => (
-        <Card key={i}>
-         <Media left href="#">
-        <Media object data-src={res.thumbnail} alt="Generic placeholder image" />
-      </Media>
-          <CardHeader>
-            <i className="fa fa-align-justify"></i><strong>{res.title}</strong>
-          </CardHeader>
-          <CardBody>
-            Foo bar lorem ipsum fooo stuff.
-          </CardBody>
-        </Card>
-      ))}
+      <Col xs="12" sm="6" lg="12">
+        {results.map((res, i) => (
+          <Card key={i}> 
+            <CardHeader>
+              <CardTitle>
+              <Button block color="link" onClick={() => toggleAccordion(true)} >
+                <img src={res.thumbnailSmall} alt="Card image cap" className="small-thumb" />
+                <i className="fa fa-align-justify"></i><strong>{res.title}</strong>
+              </Button>
+              </CardTitle>
+              <Button onClick={() => onSelect(res.id)} className="float-right">See Details</Button>
+            </CardHeader>
+            <Collapse isOpen={isOpen}>
+              <Card>
+                <CardBody>
+                  {res.description}
+                </CardBody>
+              </Card>
+            </Collapse>
+          </Card>
+        ))}
     </Col>
-  </Row>
   </div>
   )
 

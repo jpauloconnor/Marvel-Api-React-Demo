@@ -1,11 +1,11 @@
 import React from 'react';
-import './App.css';
 import Header from './components/header';
 import ComicBookSearch from './components/ComicBookSearch';
 import ComicBookDetail from './components/ComicBookDetails';
 import { useComicSearch, useComicDetail, useInitialState } from './hooks/comicBookHookFunctions'; 
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import { Container } from 'reactstrap';
+import { Container, Col, Row, Card, CardBody, } from 'reactstrap';
+import './App.css';
 
 const App = () => {
   
@@ -13,21 +13,28 @@ const App = () => {
   const [results, searchComics] = useComicSearch();  
   const [comicBook, getComicBook] = useComicDetail();
   
+  console.log("Results:", results);
   return (
     <HashRouter>
       <div>
         <Header />
           <Container>
-            <div>
-                <ComicBookSearch onSearch={searchComics} onSelect={getComicBook} results={results} /> 
-            </div>
+                    {comicBook ? 
+                      (<ComicBookDetail comicBook={comicBook} />) 
+                      : 
+                      ( 
+                        <Row>
+                          <Col xs="12" sm="6" lg="12">
+                            <Card>
+                              <CardBody>  
+                                <ComicBookSearch onSearch={searchComics} onSelect={getComicBook} results={results} /> 
+                              </CardBody>
+                            </Card>
+                          </Col>
+                        </Row>
+                      )  
+                    }
           </Container>
-
-            {comicBook ? 
-              (<ComicBookDetail comicBook={comicBook} />) 
-            : 
-              (<p>Search for a book</p>)  
-            }
       </div>
     </HashRouter>
   )

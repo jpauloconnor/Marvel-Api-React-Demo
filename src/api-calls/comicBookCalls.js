@@ -1,24 +1,21 @@
 import { bookSearchUrl, apiKey, marvelComicURL } from './apiUrls';
-import { findBooksByTitle, toTitleCase, findBooksWithCharacterFromQuery } from './comicBookCallHelpers'; 
-import _ from 'lodash';
+import { toTitleCase, createUniqueArrayOfBooksFromResponse } from './comicBookCallHelpers'; 
 
-export const searchComicBooks = async query => {
+export const searchComicBooksAndReturnUniqueArray = async query => {
   let titleCaseQuery = toTitleCase(query);
 
   const res = await fetch(bookSearchUrl);
   let responseObject = await res.json();
 
   let data = responseObject.data.results;
-  let booksForCharacter = findBooksByTitle(titleCaseQuery, data);
-  let booksWithCharacter = findBooksWithCharacterFromQuery(titleCaseQuery, data);
-  booksForCharacter.push(...booksWithCharacter);
-  
-  let books = _.uniqBy(booksForCharacter, 'id');
-  
+  let books = createUniqueArrayOfBooksFromResponse(data, titleCaseQuery);
+  console.log("Books:", books);
+
   return books.map(i => ({
     id: i.id,
     title: i.title,
-    thumbnail: i.thumbnail
+    thumbnailSmall: i.thumbnailSmall,
+    description: i.description
   }))
 }
 

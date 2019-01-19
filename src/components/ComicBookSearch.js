@@ -3,16 +3,34 @@ import PropTypes from 'prop-types';
 import SearchInput from './SearchInput';
 import SearchResults from './SearchResults';
 import _ from 'lodash';
-import { 
-  Container
-} from 'reactstrap';
+import { Col, Row, Card, CardBody, } from 'reactstrap';
+import { useToggleState } from '../hooks/accordionToggle';
+
 
 const ComicBookSearch = ({ results, onSearch, onSelect, placeholder  }) => {
+  const [isOpen, toggleAccordion] = useToggleState(false);
+
+  console.log("isOpen:", isOpen);
   return (
     <div>
-      <SearchInput placeholder={placeholder} onChange={_.debounce(onSearch, 1500)} />
-      
-      <SearchResults results={results} onSelect={onSelect} />
+       <Row>
+        <Col xs="12" sm="6" lg="12">
+          <Card>
+            <CardBody>  
+              <SearchInput placeholder={placeholder} onChange={_.debounce(onSearch, 1500)} />
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs="12" sm="6" lg="12">
+          <Card>
+            <CardBody>  
+              <SearchResults isOpen={isOpen} results={results} onSelect={onSelect} toggleAccordion={toggleAccordion} />
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
     </div>
   )
 }

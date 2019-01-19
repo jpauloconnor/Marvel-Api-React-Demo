@@ -1,11 +1,11 @@
 import { useState } from 'react'  
-import { searchComicBooks, getComicBookDetails } from '../api-calls/comicBookCalls'
+import { searchComicBooksAndReturnUniqueArray, getComicBookDetails } from '../api-calls/comicBookCalls'
 
 export const useInitialState = () => {
   const [initialResults, setInitialBookResults] = useState();
 
   function searchInitialComics() {
-    searchComicBooks("Spider-Man")
+    searchComicBooksAndReturnUniqueArray("Spider-Man")
       .then(setInitialBookResults)
   }
 
@@ -18,7 +18,7 @@ export const useComicSearch = () => {
   const [results, setBookResults] = useState([]);
 
   function searchComics(book) {
-    searchComicBooks(book)
+    searchComicBooksAndReturnUniqueArray(book)
       .then(setBookResults)
   }
 
