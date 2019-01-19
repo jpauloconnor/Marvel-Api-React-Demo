@@ -3,13 +3,22 @@ import { thumbnailSmall } from './apiUrls';
 
 export function createUniqueArrayOfBooksFromResponse(data, titleCaseQuery){
   console.log("Data: ", data)
-  let booksForCharacter = findBooksByTitle(titleCaseQuery, data);
+  console.log("Data with toggle state:", data)
+  let books = findBooksByTitle(titleCaseQuery, data);
   let booksWithCharacter = findBooksWithCharacterFromQuery(titleCaseQuery, data);
-  booksForCharacter.push(...booksWithCharacter);
-  
-  let books = _.uniqBy(booksForCharacter, 'id');
-  console.log("Books in unique array:", books);
+  books.push(...booksWithCharacter);
+  let uniqueBooks = _.uniqBy(books, 'id');
+  let booksWithToggleProp = addTogglePropertyToEachObject(uniqueBooks);
+  books.push(...booksWithToggleProp);
+  console.log("Books:", books);
   return books;
+}
+
+function addTogglePropertyToEachObject(uniqueBooks){
+  for(let i = 0; i< uniqueBooks.length; i++){
+    uniqueBooks[i].toggleIsOpen = false;
+  }
+  return uniqueBooks;
 }
 
 export function findBooksByTitle(titleCaseQuery, data){
@@ -29,7 +38,7 @@ export function findBooksByTitle(titleCaseQuery, data){
         })    
       }
     }
-    return foundBooks;
+  return foundBooks;
 }
 
 
@@ -89,3 +98,5 @@ export function toTitleCase(str) {
 export function appendPathToThumbnail(thumbnailPath){
   return `${thumbnailPath}/portrait_fantastic.jpg`;
 }
+
+

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { 
   Card, 
@@ -14,11 +14,12 @@ const SearchResult = ({ results, onSelect, toggleAccordion, isOpen }) => (
   <div>
       <Col xs="12" sm="6" lg="12">
         {results.map((res, i) => (
-          <Card key={i}> 
+        <Col xs="6" sm="6" lg="12" key={i}>
+          <Card> 
             <CardHeader>
               <CardTitle>
-              <Button block color="link" onClick={() => toggleAccordion(true)} >
-                <img src={res.thumbnailSmall} alt="Card image cap" className="small-thumb" />
+              <Button block color="link" onClick={() => toggleAccordion(res.id)} >
+                <img src={res.thumbnailSmall} alt="Card cap" className="small-thumb" />
                 <i className="fa fa-align-justify"></i><strong>{res.title}</strong>
               </Button>
               </CardTitle>
@@ -32,34 +33,11 @@ const SearchResult = ({ results, onSelect, toggleAccordion, isOpen }) => (
               </Card>
             </Collapse>
           </Card>
+          </Col>
         ))}
     </Col>
   </div>
   )
-
-// const SearchResult = ({ results, onSelect }) => (
-//   <div>
-//     <ListGroup> 
-//       <Container>  
-//         <Row>
-//         {results.map((res, i) => (
-//           <Col xs="6" sm="4" key={i}>
-//             <Card>
-//               <ListGroupItem key={i} onClick={() => onSelect(res.id)}>
-//                 <CardImg top width="100%" src={res.thumbnail} alt="Card image cap" />
-//                 <CardBody>
-//                   <CardTitle>{res.title}</CardTitle>
-//                   <Button>See Book Details</Button>
-//                 </CardBody>
-//               </ListGroupItem>
-//             </Card>
-//           </Col>
-//         ))}
-//         </Row>
-//       </Container>  
-//     </ListGroup>
-//   </div>
-// )
 
 SearchResult.propTypes = {
   results: PropTypes.array,

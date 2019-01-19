@@ -1,6 +1,7 @@
 import { useState } from 'react'  
 import { searchComicBooksAndReturnUniqueArray, getComicBookDetails } from '../api-calls/comicBookCalls'
-
+import { exists } from 'fs';
+// import { setToggleStateInObjectById } from '../api-calls/comicBookCallHelpers';
 export const useInitialState = () => {
   const [initialResults, setInitialBookResults] = useState();
 
@@ -12,7 +13,7 @@ export const useInitialState = () => {
   return [initialResults, searchInitialComics]
 }
 
-
+//--For Search View
 export const useComicSearch = () => {
 
   const [results, setBookResults] = useState([]);
@@ -25,43 +26,69 @@ export const useComicSearch = () => {
   return [results, searchComics]
 }
 
-export function useSpinner(){
-  const [spinnerState, setSpinner] = useState(false);
-
-  function getSpinner(){
-    setSpinner(true)  
-  }
-
-  return [spinnerState, getSpinner];
-}
-
+//--For Details View
 export function useComicDetail() {
-  const [character, setCharacter] = useState(null);
+  const [comic, setComic] = useState(null);
   
-  function getCharacter(id) {
+  function getComic(id) {
     if (id === null) {
-      setCharacter(null);
+      setComic(null);
     } else {
-      getComicBookDetails(id).then(setCharacter);
+      getComicBookDetails(id).then(setComic);
     }
   }
   
-  return [character, getCharacter];
+  return [comic, getComic];
 }
 
-/* FOOTNOTES 
-    1 - This is a callback function, meaning that it won't execute until after the inner function has executed
-    2 - Functions/Methods should always start with use
-    3 - State variables - this is array destructuring. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
-        -Destructuring takes away the [0, 1] usage and spits these out as usable variables on an individual level.
-        3.1 - Holds the current state
-        3.2 - A function that will allow us to set a new state, like setState
-    4 - useState will allow us to set state
-        -Can be used in functional components
-        -Should be used at the top of everything as state management throughout the app
-    5 - Starts out as an empty array 
-    6 - Declaring a nested function that will take in a book name as a parameter, a string
-    7 - We call the function in our api calls
-    8 - This is our setter. Once we get the api call result back, we can fire off the setBookResults function declared in 3.2
-    9 - Two values are returned from the method.
-*/
+//--Toggle All
+export const useToggleState = () => {
+
+  const [isOpen, setToggleState] = useState();
+
+  function toggleAccordion(){
+      if(isOpen){
+        setToggleState(false);
+      } else {
+        setToggleState(true);
+      }
+  }
+
+  return [isOpen, toggleAccordion]
+}
+
+
+
+// TODO: Toggle Individuals
+// export const useToggleStateForEachItem = () => {
+//   const [itemsToggle, setToggleStateForIndividualItems] = useState([]);
+
+//   function toggleAccordion(results, id) {
+//     console.log("Items Tog:", itemsToggle);
+//     if (itemsToggle !== undefined && results.length !== 0) {
+//       itemsToggle.splice(0, itemsToggle.length, ...results);
+//       console.log("Items:", itemsToggle);
+//       var x = setToggleStateInObjectById(itemsToggle, 22253);
+//       console.log("X:", x);
+//       setToggleStateForIndividualItems(x);
+//   //    setToggleStateForIndividualItems(results);
+//     }
+//   }
+
+//   return [itemsToggle, toggleAccordion];
+// }
+
+
+// export function setToggleStateInObjectById(itemsToggle, id){
+//   console.log(itemsToggle, id);
+  
+//     for(var i = 0; i < itemsToggle.length; i++){
+//       console.log("I:", i);
+//       if(itemsToggle[i].id === id){
+//         itemsToggle[i].toggleIsOpen = true;
+//         break;
+//       }
+//     }
+//     return itemsToggle;
+// }
+

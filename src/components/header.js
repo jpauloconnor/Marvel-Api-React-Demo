@@ -1,14 +1,12 @@
 import React from 'react';
 import { marvelLogo } from "../assets/logo-marvel.svg";
-import { Link } from 'react-router-dom';
 import {
     Navbar,
     NavbarBrand,
     Nav,
     NavItem,
     NavLink,
-    Jumbotron,
-    Button
+    Jumbotron
 } from 'reactstrap';
 
 const Header = () => (

@@ -9,13 +9,13 @@ export const searchComicBooksAndReturnUniqueArray = async query => {
 
   let data = responseObject.data.results;
   let books = createUniqueArrayOfBooksFromResponse(data, titleCaseQuery);
-  console.log("Books:", books);
-
+  
   return books.map(i => ({
     id: i.id,
     title: i.title,
     thumbnailSmall: i.thumbnailSmall,
-    description: i.description
+    description: i.description,
+    toggleIsOpen: i.toggleIsOpen
   }))
 }
 
@@ -27,4 +27,3 @@ export const getComicBookDetails = async queryByBookId => {
 
   return objectToReturn;
 }
-
