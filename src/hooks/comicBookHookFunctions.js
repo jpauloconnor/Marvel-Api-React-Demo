@@ -1,32 +1,19 @@
-import { useState } from 'react'  
-import { searchComicBooksAndReturnUniqueArray, getComicBookDetails } from '../api-calls/comicBookCalls'
-import { exists } from 'fs';
-// import { setToggleStateInObjectById } from '../api-calls/comicBookCallHelpers';
-export const useInitialState = () => {
-  const [initialResults, setInitialBookResults] = useState();
+import { useState, useEffect } from 'react'  
+import { searchComicBooksAndReturnUniqueArray, getComicBookDetailsById } from '../api-calls/comicBookCalls'
 
-  function searchInitialComics() {
-    searchComicBooksAndReturnUniqueArray("Spider-Man")
-      .then(setInitialBookResults)
-  }
-
-  return [initialResults, searchInitialComics]
-}
-
-//--For Search View
+//--Search View
 export const useComicSearch = () => {
-
   const [results, setBookResults] = useState([]);
 
   function searchComics(book) {
     searchComicBooksAndReturnUniqueArray(book)
       .then(setBookResults)
-  }
-
+    }
+  
   return [results, searchComics]
 }
 
-//--For Details View
+//--Details View
 export function useComicDetail() {
   const [comic, setComic] = useState(null);
   
@@ -34,16 +21,15 @@ export function useComicDetail() {
     if (id === null) {
       setComic(null);
     } else {
-      getComicBookDetails(id).then(setComic);
+      getComicBookDetailsById(id).then(setComic);
     }
   }
-  
+
   return [comic, getComic];
 }
 
-//--Toggle All
+//--Toggle All -> Working
 export const useToggleState = () => {
-
   const [isOpen, setToggleState] = useState();
 
   function toggleAccordion(){
@@ -57,12 +43,41 @@ export const useToggleState = () => {
   return [isOpen, toggleAccordion]
 }
 
+//--For the Initial State - Not using yet
+export const useCheckResultsState = () => {
+  const [isEmpty, setResultsState] = useState(true);
+
+  function checkResultsForEmpty(results){
+    var resultsState = (results === undefined || results == null || results.length <= 0) ? true : false;
+    setResultsState(resultsState);
+  }
+  return [isEmpty, checkResultsForEmpty]
+}
 
 
-// TODO: Toggle Individuals
+//TODO: Plan this out....Tried to do, but didn't get there.
+export const useInitialResults = () => {
+  const [initialResults, setInitialBookResults] = useState([]);
+  
+  function searchInitialComics(name) {
+    
+    useEffect(async () => {
+      searchComicBooksAndReturnUniqueArray(name)
+      .then(setInitialBookResults)
+      console.log("Search Initial:", initialResults);
+  
+      }, []);
+    }
+
+  return [initialResults, searchInitialComics]
+}
+
+
+
+// TODO: Toggle Individual items in List
 // export const useToggleStateForEachItem = () => {
-//   const [itemsToggle, setToggleStateForIndividualItems] = useState([]);
-
+  //   const [itemsToggle, setToggleStateForIndividualItems] = useState([]);
+  
 //   function toggleAccordion(results, id) {
 //     console.log("Items Tog:", itemsToggle);
 //     if (itemsToggle !== undefined && results.length !== 0) {

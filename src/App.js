@@ -1,40 +1,59 @@
 import React, { useEffect } from 'react';
-import Header from './components/header';
-import ComicBookSearch from './components/ComicBookSearch';
-import ComicBookDetail from './components/ComicBookDetails';
-import { useComicSearch, useComicDetail, useToggleState } from './hooks/comicBookHookFunctions'; 
+import Header from './components/SiteComponents/header';
+import SearchDirections from './components/SearchComponents/SearchDirections';
+import ComicBookSearch from './components/SearchComponents/ComicBookSearch';
+import ComicBookDetail from './components/DetailsComponents/ComicBookDetails';
+import { useComicSearch, useComicDetail, useToggleState, useCheckResultsState } from './hooks/comicBookHookFunctions'; 
 import { HashRouter } from 'react-router-dom';
-import { Container, Col, Row, Card, CardBody, } from 'reactstrap';
+import { Container } from 'reactstrap';
 import './App.css';
 
 const App = () => {
-  
   const [results, searchComics] = useComicSearch();  
   const [comicBook, getComicBook] = useComicDetail();
   const [isOpen, toggleAccordion] = useToggleState();
+  const [isEmpty, checkResultsForEmpty] = useCheckResultsState();
 
+  console.log("Single comic:", comicBook);
+
+  function removeDetailsView(){
+    getComicBook(null);
+  }
+
+  useEffect(() => {
+    checkResultsForEmpty(results);
+  }, [results])
+
+  
+  useEffect(() => {
+    console.log(comicBook)
+  }, [])
+  
   return (
     <HashRouter>
-      <div>
+      <React.Fragment>
         <Header />
-          <Container>
                     {comicBook ? 
-                      (<ComicBookDetail comicBook={comicBook} />) 
+                      (
+                        <Container>
+                          <ComicBookDetail comicBook={comicBook} onClose={removeDetailsView} /> 
+                        </Container>
+                      )
                       : 
                       ( 
-                        <Row>
-                          <Col xs="12" sm="6" lg="12">
-                            <Card>
-                              <CardBody>  
-                                <ComicBookSearch onSearch={searchComics} onSelect={getComicBook} results={results} toggleAccordion={toggleAccordion} isOpen={isOpen}/> 
-                              </CardBody>
-                            </Card>
-                          </Col>
-                        </Row>
+                        <React.Fragment>
+                          <SearchDirections />
+                          <ComicBookSearch 
+                            onSearch={searchComics} 
+                            onSelect={getComicBook} 
+                            results={results} 
+                            toggleAccordion={toggleAccordion} 
+                            isOpen={isOpen} 
+                            isEmpty={isEmpty}/> 
+                        </React.Fragment>
                       )  
                     }
-          </Container>
-      </div>
+      </React.Fragment>
     </HashRouter>
   )
 }

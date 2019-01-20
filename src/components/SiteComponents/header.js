@@ -1,12 +1,11 @@
 import React from 'react';
-import { marvelLogo } from "../assets/logo-marvel.svg";
+import { marvelLogo } from "../../assets/logo-marvel.svg";
 import {
     Navbar,
     NavbarBrand,
     Nav,
     NavItem,
     NavLink,
-    Jumbotron
 } from 'reactstrap';
 
 const Header = () => (
@@ -23,13 +22,7 @@ const Header = () => (
             </Nav>
         </Navbar>
         <div className="header-banner">
-            <img src={marvelLogo} alt="Home logo" height="60px" />
-        </div>
-        <div>
-            <Jumbotron>
-                <h1 className="display-3">Search the Marvel API</h1>
-                <p className="lead">This is a simple search tool for the Marvel API. Enter your favorite hero and villain and we'll find books for you with those characters in them.</p>
-            </Jumbotron>
+            <img src={marvelLogo} height="60px" alt={"Marvel Image"} />
         </div>
     </div>
 );

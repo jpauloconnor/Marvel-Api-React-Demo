@@ -1,10 +1,10 @@
-import { bookSearchUrl, apiKey, marvelComicURL } from './apiUrls';
+import { BOOK_SEARCH_URL, API_KEY, MARVEL_COMIC_URL } from './apiUrls';
 import { toTitleCase, createUniqueArrayOfBooksFromResponse } from './comicBookCallHelpers'; 
 
 export const searchComicBooksAndReturnUniqueArray = async query => {
   let titleCaseQuery = toTitleCase(query);
 
-  const res = await fetch(bookSearchUrl);
+  const res = await fetch(BOOK_SEARCH_URL);
   let responseObject = await res.json();
 
   let data = responseObject.data.results;
@@ -19,11 +19,11 @@ export const searchComicBooksAndReturnUniqueArray = async query => {
   }))
 }
 
-export const getComicBookDetails = async queryByBookId => {
-  let bookIdQueryUrl = `${marvelComicURL}comics/${queryByBookId}?${apiKey}`;
+export const getComicBookDetailsById = async QUERY_BY_BOOK_ID => {
+  let bookIdQueryUrl = `${MARVEL_COMIC_URL}comics/${QUERY_BY_BOOK_ID}?${API_KEY}`;
   const res = await fetch(bookIdQueryUrl)
   let detailsObject = await res.json();
-  let objectToReturn = detailsObject.data.results[0];
-
-  return objectToReturn;
+  let book = detailsObject.data.results[0];
+  console.log(book);
+  return book;
 }

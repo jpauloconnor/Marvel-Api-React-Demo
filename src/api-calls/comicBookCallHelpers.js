@@ -2,26 +2,18 @@ import _ from 'lodash';
 import { thumbnailSmall } from './apiUrls';
 
 export function createUniqueArrayOfBooksFromResponse(data, titleCaseQuery){
-  console.log("Data: ", data)
-  console.log("Data with toggle state:", data)
-  let books = findBooksByTitle(titleCaseQuery, data);
-  let booksWithCharacter = findBooksWithCharacterFromQuery(titleCaseQuery, data);
-  books.push(...booksWithCharacter);
-  let uniqueBooks = _.uniqBy(books, 'id');
-  let booksWithToggleProp = addTogglePropertyToEachObject(uniqueBooks);
-  books.push(...booksWithToggleProp);
-  console.log("Books:", books);
-  return books;
+  let booksWithSpecificOrPartialTitle = findBooksBySpecificOrPartialTitle(titleCaseQuery, data);
+  let booksWithCharacter = findBooksContainingCharacterInQuery(titleCaseQuery, data);
+  booksWithSpecificOrPartialTitle.push(...booksWithCharacter);
+
+  let arrayOfUniqueBooks = _.uniqBy(booksWithSpecificOrPartialTitle, 'id');
+  let booksWithToggleProperty = addTogglePropertyToEachObject(arrayOfUniqueBooks);
+  arrayOfUniqueBooks.push(...booksWithToggleProperty);
+
+  return arrayOfUniqueBooks;
 }
 
-function addTogglePropertyToEachObject(uniqueBooks){
-  for(let i = 0; i< uniqueBooks.length; i++){
-    uniqueBooks[i].toggleIsOpen = false;
-  }
-  return uniqueBooks;
-}
-
-export function findBooksByTitle(titleCaseQuery, data){
+export function findBooksBySpecificOrPartialTitle(titleCaseQuery, data){
   let foundBooks = [];
     for(var i = 0; i < data.length; i++){
       let currentItemId = data[i].id;
@@ -41,27 +33,14 @@ export function findBooksByTitle(titleCaseQuery, data){
   return foundBooks;
 }
 
-
-export function findBooksByCharacter(titleCaseQuery, data){
-  let foundBooks = [];
-    for(var i = 0; i < data.length; i++){
-      let currentItemId = data[i].id;
-      let currentItemTitle = data[i].title;
-      let thumbnail = data[i].thumbnail.path;
-      let currentItemThumbnail = appendPathToThumbnail(thumbnail);
-
-      if(currentItemTitle.includes(titleCaseQuery)){
-        foundBooks.push({
-          id: currentItemId,
-          title: currentItemTitle,
-          thumbnail: currentItemThumbnail
-        })    
-      }
-    }
-    return foundBooks;
+function addTogglePropertyToEachObject(uniqueBooks){
+  for(let i = 0; i< uniqueBooks.length; i++){
+    uniqueBooks[i].toggleIsOpen = false;
+  }
+  return uniqueBooks;
 }
 
-export function findBooksWithCharacterFromQuery(titleCaseQuery, data){
+export function findBooksContainingCharacterInQuery(titleCaseQuery, data){
   let foundBooksForCharacter = [];
     for(var i = 0; i < data.length; i++){
         let items = data[i].characters.items;
@@ -93,10 +72,6 @@ export function toTitleCase(str) {
           return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
       }
   );
-}
-
-export function appendPathToThumbnail(thumbnailPath){
-  return `${thumbnailPath}/portrait_fantastic.jpg`;
 }
 
 
