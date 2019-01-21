@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SearchInput from './SearchInput';
 import SearchResults from './SearchResults';
 import _ from 'lodash';
-import { Col, Row, Card, CardBody, Container } from 'reactstrap';
+import { Col, Row, Container } from 'reactstrap';
 
 
 const ComicBookSearch = ({ results, onSearch, onSelect, placeholder, isEmpty, isOpen, toggleAccordion}) => {
@@ -11,17 +11,17 @@ const ComicBookSearch = ({ results, onSearch, onSelect, placeholder, isEmpty, is
   return (
     <div>
     <Container>
-       <Row>
-        <Col xs="12" sm="12" lg="12">
-              <SearchInput 
-              placeholder={placeholder} 
-              onChange={_.debounce(onSearch, 1000)}  />
-        </Col>
-        </Row>
-      </Container>
-      <Container>
       <Row>
-        <Col xs="12" sm="12" lg="12">
+        <Col>
+              <SearchInput 
+                placeholder={placeholder} 
+                onChange={_.debounce(onSearch, 1000)}  />
+        </Col>
+      </Row>
+    </Container>
+    <Container>
+      <Row>
+        <Col>
               <SearchResults 
                 isOpen={isOpen} 
                 results={results} 

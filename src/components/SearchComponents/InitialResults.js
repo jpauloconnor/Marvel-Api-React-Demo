@@ -7,7 +7,8 @@ import {
   CardHeader,
   Button,
   Col,
-  Collapse
+  Collapse,
+  Row
  } from 'reactstrap';
 
 var initialData =  
@@ -24,13 +25,19 @@ const InitialResults = ({ onSelect, toggleAccordion, isOpen }) => (
            <Col key={i}>
               <Card> 
                 <CardHeader>
-                  <Col className="col-12 col-sm-12 col-lg-12" >
+                  <Row>
+                  <Col lg="2">
                     <CardTitle onClick={() => toggleAccordion(res.id)} >
-                      <img src={res.thumbnailSmall} alt="Card cap" className="small-thumb" />
-                      <strong>{res.title}</strong>
+                      <img src={res.thumbnailSmall} alt="Card cap" className="rounded-circle" />
                     </CardTitle>
+                  </Col>
+                  <Col lg="8" onClick={() => toggleAccordion(res.id)} className="align-self-center">
+                      <strong>{res.title}</strong>
+                  </Col>
+                  <Col lg="2" className="align-self-center">
                     <Button onClick={() => onSelect(res.id)} className="float-right">See Details</Button>
                   </Col>
+                </Row>
                 </CardHeader>
                 <Collapse isOpen={isOpen}>
                   <Card>

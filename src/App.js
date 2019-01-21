@@ -14,8 +14,6 @@ const App = () => {
   const [isOpen, toggleAccordion] = useToggleState();
   const [isEmpty, checkResultsForEmpty] = useCheckResultsState();
 
-  console.log("Single comic:", comicBook);
-
   function removeDetailsView(){
     getComicBook(null);
   }
@@ -26,35 +24,33 @@ const App = () => {
 
   
   useEffect(() => {
-    console.log(comicBook)
+    console.log("Comic Book:", comicBook)
   }, [])
   
   return (
     <HashRouter>
       <React.Fragment>
-        <Header />
-                    {comicBook ? 
-                      (
-                        <Container>
-                          <ComicBookDetail comicBook={comicBook} onClose={removeDetailsView} /> 
-                        </Container>
-                      )
-                      : 
-                      ( 
-                        <React.Fragment>
-                          <SearchDirections />
-                          <ComicBookSearch 
-                            onSearch={searchComics} 
-                            onSelect={getComicBook} 
-                            results={results} 
-                            toggleAccordion={toggleAccordion} 
-                            isOpen={isOpen} 
-                            isEmpty={isEmpty}/> 
-                        </React.Fragment>
-                      )  
-                    }
-      </React.Fragment>
-    </HashRouter>
+          <Header />
+            {comicBook ? 
+              (
+                  <ComicBookDetail comicBook={comicBook} onClose={removeDetailsView} /> 
+              )
+              : 
+              ( 
+                <React.Fragment>
+                  <SearchDirections />
+                  <ComicBookSearch 
+                    onSearch={searchComics} 
+                    onSelect={getComicBook} 
+                    results={results} 
+                    toggleAccordion={toggleAccordion} 
+                    isOpen={isOpen} 
+                    isEmpty={isEmpty}/> 
+                </React.Fragment>
+              )  
+            }
+        </React.Fragment>
+      </HashRouter>
   )
 }
 
