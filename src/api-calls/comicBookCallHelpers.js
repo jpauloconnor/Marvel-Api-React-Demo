@@ -2,24 +2,24 @@ import _ from 'lodash';
 import { thumbnailSmall } from './apiUrls';
 
 export function createUniqueArrayOfBooksFromResponse(data, titleCaseQuery){
-  let booksWithSpecificOrPartialTitle = findBooksBySpecificOrPartialTitle(titleCaseQuery, data);
-  let booksWithCharacter = findBooksContainingCharacterInQuery(titleCaseQuery, data);
+  const booksWithSpecificOrPartialTitle = findBooksBySpecificOrPartialTitle(titleCaseQuery, data);
+  const booksWithCharacter = findBooksContainingCharacterInQuery(titleCaseQuery, data);
   booksWithSpecificOrPartialTitle.push(...booksWithCharacter);
 
-  let arrayOfUniqueBooks = _.uniqBy(booksWithSpecificOrPartialTitle, 'id');
-  let booksWithToggleProperty = addTogglePropertyToEachObject(arrayOfUniqueBooks);
+  const arrayOfUniqueBooks = _.uniqBy(booksWithSpecificOrPartialTitle, 'id');
+  const booksWithToggleProperty = addTogglePropertyToEachObject(arrayOfUniqueBooks);
   arrayOfUniqueBooks.push(...booksWithToggleProperty);
 
   return arrayOfUniqueBooks;
 }
 
 export function findBooksBySpecificOrPartialTitle(titleCaseQuery, data){
-  let foundBooks = [];
+  const foundBooks = [];
     for(var i = 0; i < data.length; i++){
-      let currentItemId = data[i].id;
-      let currentItemTitle = data[i].title;
-      let thumbnail = data[i].thumbnail.path;
-      let description = data[i].description;
+      const currentItemId = data[i].id;
+      const currentItemTitle = data[i].title;
+      const thumbnail = data[i].thumbnail.path;
+      const description = data[i].description;
 
       if(currentItemTitle.includes(titleCaseQuery)){
         foundBooks.push({
@@ -43,14 +43,14 @@ function addTogglePropertyToEachObject(uniqueBooks){
 export function findBooksContainingCharacterInQuery(titleCaseQuery, data){
   let foundBooksForCharacter = [];
     for(var i = 0; i < data.length; i++){
-        let items = data[i].characters.items;
-        let currentItemTitle = data[i].title;
-        let currentItemId = data[i].id;
-        let thumbnailPath = data[i].thumbnail.path;
+      const items = data[i].characters.items;
+      const currentItemTitle = data[i].title;
+      const currentItemId = data[i].id;
+      const thumbnailPath = data[i].thumbnail.path;
   
         if(items !== null) {
           for(var j = 0; j < items.length; j++){
-            let name = items[j].name;
+            const name = items[j].name;
             if(name === titleCaseQuery){
               foundBooksForCharacter.push({
                 id: currentItemId,

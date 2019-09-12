@@ -1,32 +1,26 @@
-import React, { useEffect } from 'react';
-import Header from './components/SiteComponents/header';
-import SearchDirections from './components/SearchComponents/SearchDirections';
-import ComicBookSearch from './components/SearchComponents/ComicBookSearch';
-import ComicBookDetail from './components/DetailsComponents/ComicBookDetails';
-import { useComicSearch, useComicDetail, useToggleState, useCheckResultsState } from './hooks/comicBookHookFunctions'; 
-import { HashRouter } from 'react-router-dom';
-import { Container } from 'reactstrap';
-import './App.css';
+import React, { useEffect } from 'react'
+import Header from './components/SiteComponents/header'
+import SearchDirections from './components/SearchComponents/SearchDirections'
+import ComicBookSearch from './components/SearchComponents/ComicBookSearch'
+import ComicBookDetail from './components/DetailsComponents/ComicBookDetails'
+import { useComicSearch, useComicDetail, useToggleState, useCheckResultsState } from './hooks/comicBookHookFunctions'
+import { HashRouter } from 'react-router-dom'
+import './App.css'
 
 const App = () => {
-  const [results, searchComics] = useComicSearch();  
-  const [comicBook, getComicBook] = useComicDetail();
-  const [isOpen, toggleAccordion] = useToggleState();
-  const [isEmpty, checkResultsForEmpty] = useCheckResultsState();
+  const [results, searchComics] = useComicSearch()  
+  const [comicBook, getComicBook] = useComicDetail()
+  const [isOpen, toggleAccordion] = useToggleState()
+  const [isEmpty, checkResultsForEmpty] = useCheckResultsState()
 
   function removeDetailsView(){
-    getComicBook(null);
+    getComicBook(null)
   }
 
   useEffect(() => {
-    checkResultsForEmpty(results);
+    checkResultsForEmpty(results)
   }, [results])
 
-  
-  useEffect(() => {
-    console.log("Comic Book:", comicBook)
-  }, [])
-  
   return (
     <HashRouter>
       <React.Fragment>
@@ -54,4 +48,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default App

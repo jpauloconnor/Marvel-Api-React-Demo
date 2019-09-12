@@ -1,13 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import SearchInput from './SearchInput';
-import SearchResults from './SearchResults';
-import _ from 'lodash';
-import { Col, Row, Container } from 'reactstrap';
+import React from 'react'
+import SearchInput from './SearchInput'
+import SearchResults from './SearchResults'
+import _ from 'lodash'
+import { Col, Row, Container } from 'reactstrap'
 
+interface Props {
+  results: string[]
+  placeholder: string
+  isEmpty: boolean
+  onSearch?: () => void
+  onSelect?: () => void
+  isOpen: boolean
+  toggleAccordion?: () => void
+}
 
-const ComicBookSearch = ({ results, onSearch, onSelect, placeholder, isEmpty, isOpen, toggleAccordion}) => {
-
+const ComicBookSearch = ({ results, onSearch, onSelect, placeholder, isEmpty, isOpen, toggleAccordion}: Props) => {
   return (
     <div>
     <Container>
@@ -33,15 +40,6 @@ const ComicBookSearch = ({ results, onSearch, onSelect, placeholder, isEmpty, is
     </Container>
     </div>
   )
-}
-
-ComicBookSearch.propTypes = {
-  onSearch: PropTypes.func,
-  onSelect: PropTypes.func,
-  results: PropTypes.array,
-  isEmpty: PropTypes.bool,
-  placeholder: PropTypes.string,
-  checkResultsForEmpty: PropTypes.func
 }
 
 export default ComicBookSearch;

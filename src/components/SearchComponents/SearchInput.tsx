@@ -1,13 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { 
   Input,
-} from 'reactstrap';
+} from 'reactstrap'
 
-const SearchInput = ({ onChange }) => {
+
+const SearchInput = ({ placeholder, onChange }) => {
 
   function handleSearchInput({ target }) {
-      onChange(target.value);
+      onChange(target.value)
   }
 
   return (
@@ -24,8 +24,4 @@ const SearchInput = ({ onChange }) => {
   )
 }
 
-SearchInput.propTypes = {
-  onChange: PropTypes.func,
-}
-
-export default SearchInput;
+export default SearchInput

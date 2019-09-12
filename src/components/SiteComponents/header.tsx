@@ -1,5 +1,5 @@
-import React from 'react';
-import { marvelLogo } from "../../assets/logo-marvel.svg";
+import React from 'react'
+import marvelLogo from '../../assets/logo-marvel.svg'
 import {
     Navbar,
     NavbarBrand,
@@ -8,9 +8,10 @@ import {
     NavLink,
     Col, 
     Row
-} from 'reactstrap';
+} from 'reactstrap'
 
-const Header = () => (
+
+const Header = (): JSX.Element => (
     <Row>
         <Col>
             <Navbar color="light" light expand="md">

@@ -2,8 +2,7 @@ import React from 'react';
 import {
     Jumbotron,
     Col,
-    Row, 
-    Container
+    Row
 } from 'reactstrap';
 
 const SearchDirections = () => (
